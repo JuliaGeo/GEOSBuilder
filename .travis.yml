@@ -1,0 +1,40 @@
+language: julia
+os:
+  - linux
+julia:
+  - 0.6
+notifications:
+  email: false
+git:
+  depth: 99999999
+cache:
+  timeout: 1000
+  directories:
+    - downloads
+env:
+  global:
+    - BINARYBUILDER_DOWNLOADS_CACHE=downloads
+    - BINARYBUILDER_AUTOMATIC_APPLE=false
+sudo: required
+
+# Before anything else, get the latest versions of things
+before_script:
+  - julia -e 'Pkg.clone("https://github.com/JuliaPackaging/BinaryProvider.jl")'
+  - julia -e 'Pkg.clone("https://github.com/JuliaPackaging/BinaryBuilder.jl"); Pkg.build()'
+
+script:
+  - julia build_tarballs.jl
+
+
+deploy:
+    provider: releases
+    api_key:
+        # Note; this api_key is only valid for visr/GEOSBuilder; you need
+        # to make your own: https://docs.travis-ci.com/user/deployment/releases/
+        secure: f2nIvx1CyuzW+/RxURxx0njR0YT2ZLdHFHcETiLA42xSdcpE1qTujnWMrFLk3Cb/bw5OAU7BpFMDqTCDpEr1Sz6rZQ4knp/wsDkD5qG2wsBdwyJKWevKoSnqvIXkBZQTM7izeueHMf9fDDdcgZk6tw8ORmM9lE6jlidKH6Sk39BxYdXz5I2YMIPTQ5iK/E3U95gCYPVXO/AQMlJWIf4en6xv71XQVtFKV/oGHFhmVOx0ypj3+YOarYfP/kblR0n3NpCzRTY25Vv0M+VusvYIxrOEfViitZ0JQFfATQ7tNa4RcJR0vebQeo1BkINGgFOcyJQy8QbmJzmklfBTO+uDelC+/Q2FGFJcjLy7DrFoLyX/Goj+BcsCjjA7RCXO4zZ1DPBWPwWNmb2BWStggTWzFVIVBBVCoRvQTcRT1wtLvJcYhgtgVzHsJZnetpZ1F9TXn+9YOc2xNqIm7mbszDL8LRjN7/fBUv2Y+7oVPukcXCKMrc/J7L+gb4zT8uq3hcaXE7+7D2xITcLQxkfEbcS/PClr1QsfPCps5yKLhLjfBalVICzrcDbwycWCW8l8b1OewDkRf2lotaiq+jmauBLKFUDHtXdynAYWzBsr36uxA6trOWDYZYsKafEFnD775On71TgDb+bmHMo56Uy3lIJKkt2Wf2E09eru80Aq4X3MsaY=
+    file_glob: true
+    file: products/*
+    skip_cleanup: true
+    on:
+        repo: visr/GEOSBuilder
+        tags: true
