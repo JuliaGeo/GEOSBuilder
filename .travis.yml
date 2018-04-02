@@ -20,7 +20,7 @@ env:
     - TARGET=i686-linux-gnu
     - TARGET=x86_64-linux-gnu
     - TARGET=aarch64-linux-gnu
-    - TARGET=armv7l-linux-gnueabihf
+    - TARGET=arm-linux-gnueabihf
     - TARGET=powerpc64le-linux-gnu
     - TARGET=x86_64-apple-darwin14
     - TARGET=i686-w64-mingw32
