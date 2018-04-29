@@ -31,8 +31,8 @@ platforms = [
 
 # The products that we will ensure are always built
 products(prefix) = [
-    LibraryProduct(prefix, "libgeos_c", :libgeos_c),
-    LibraryProduct(prefix, "libgeos", :libgeos)
+    LibraryProduct(prefix, "libgeos_c", :libgeos),
+    LibraryProduct(prefix, "libgeos", :libgeos_cpp)
 ]
 
 # Dependencies that must be installed before this package can be built
