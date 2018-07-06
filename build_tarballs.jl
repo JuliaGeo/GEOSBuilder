@@ -1,10 +1,11 @@
 using BinaryBuilder
 
+src_version = v"3.6.2"  # also change in raw script string
+
 # Collection of sources required to build GEOS
 sources = [
-    "http://download.osgeo.org/geos/geos-3.6.2.tar.bz2" =>
+    "http://download.osgeo.org/geos/geos-$src_version.tar.bz2" =>
     "045a13df84d605a866602f6020fc6cbf8bf4c42fb50de237a08926e1d7d7652a",
-
 ]
 
 # Bash recipe for building across all platforms
@@ -41,5 +42,5 @@ dependencies = [
 ]
 
 # Build the tarballs, and possibly a `build.jl` as well.
-build_tarballs(ARGS, "GEOS", sources, script, platforms, products, dependencies)
+build_tarballs(ARGS, "GEOS", src_version, sources, script, platforms, products, dependencies)
 
