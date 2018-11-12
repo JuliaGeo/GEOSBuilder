@@ -17,6 +17,7 @@ env:
     - BINARYBUILDER_AUTOMATIC_APPLE=true
   # Our build takes too long for one job, so split targets across multiple jobs
   # triplets come from using BinaryBuilder; triplet.(supported_platforms())
+  # with the exception that for x86_64-linux-musl we append -gcc7
   matrix:
     - TARGET=i686-linux-gnu
     - TARGET=x86_64-linux-gnu
@@ -24,7 +25,7 @@ env:
     - TARGET=arm-linux-gnueabihf
     - TARGET=powerpc64le-linux-gnu
     - TARGET=i686-linux-musl
-    - TARGET=x86_64-linux-musl
+    - TARGET=x86_64-linux-musl-gcc7
     - TARGET=aarch64-linux-musl
     - TARGET=arm-linux-musleabihf
     - TARGET=x86_64-apple-darwin14
