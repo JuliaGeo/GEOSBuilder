@@ -10,6 +10,12 @@ sources = [
 
 # Bash recipe for building across all platforms
 script = raw"""
+# use GCC ar instead of the LLVM one on OSX,
+# see https://github.com/JuliaPackaging/BinaryBuilder.jl/issues/388
+if [[ ${target} == *darwin* ]]; then
+    export AR=/opt/${target}/bin/${target}-ar
+fi
+
 cd $WORKSPACE/srcdir
 cd geos-3.7.0/
 ./configure --prefix=$prefix --host=$target
