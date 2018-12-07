@@ -1,11 +1,11 @@
 using BinaryBuilder
 
-src_version = v"3.7.0"  # also change in raw script string
+src_version = v"3.7.1"  # also change in raw script string
 
 # Collection of sources required to build GEOS
 sources = [
     "http://download.osgeo.org/geos/geos-$src_version.tar.bz2" =>
-    "4fbf41a792fd74293ab59e0a980e8654cd411a9d45416d66eaa12d53d1393fd7",
+    "0006c7b49eaed016b9c5c6f872417a7d7dc022e069ddd683335793d905a8228c",
 ]
 
 # Bash recipe for building across all platforms
@@ -17,7 +17,7 @@ if [[ ${target} == *darwin* ]]; then
 fi
 
 cd $WORKSPACE/srcdir
-cd geos-3.7.0/
+cd geos-3.7.1/
 ./configure --prefix=$prefix --host=$target
 make -j${nproc}
 make install
