@@ -1,6 +1,6 @@
 using BinaryBuilder
 
-src_version = v"3.7.1"  # also change in raw script string
+src_version = v"3.7.1"  # also change in raw script string below
 
 # Collection of sources required to build GEOS
 sources = [
