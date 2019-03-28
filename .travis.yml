@@ -16,24 +16,50 @@ env:
     - BINARYBUILDER_DOWNLOADS_CACHE=downloads
     - BINARYBUILDER_AUTOMATIC_APPLE=true
   # Our build takes too long for one job, so split targets across multiple jobs
-  # triplets come from using BinaryBuilder; triplet.(supported_platforms())
-  # with the exception that for x86_64-linux-musl we append -gcc7
+  # triplets come from
+  # using BinaryBuilder; triplet.(expand_gcc_versions(supported_platforms()))
+  # with the exception that we don't build x86_64-linux-musl-gcc4 due to
+  # https://github.com/JuliaPackaging/BinaryBuilder.jl/issues/387
+  # and x86_64-w64-mingw32-gcc4 is disabled due to
+  # https://github.com/JuliaPackaging/BinaryBuilder.jl/issues/407
   matrix:
-    - TARGET=i686-linux-gnu
-    - TARGET=x86_64-linux-gnu
-    - TARGET=aarch64-linux-gnu
-    - TARGET=arm-linux-gnueabihf
-    - TARGET=powerpc64le-linux-gnu
-    - TARGET=i686-linux-musl
+    - TARGET=i686-linux-gnu-gcc4
+    - TARGET=i686-linux-gnu-gcc7
+    - TARGET=i686-linux-gnu-gcc8
+    - TARGET=x86_64-linux-gnu-gcc4
+    - TARGET=x86_64-linux-gnu-gcc7
+    - TARGET=x86_64-linux-gnu-gcc8
+    - TARGET=aarch64-linux-gnu-gcc4
+    - TARGET=aarch64-linux-gnu-gcc7
+    - TARGET=aarch64-linux-gnu-gcc8
+    - TARGET=arm-linux-gnueabihf-gcc4
+    - TARGET=arm-linux-gnueabihf-gcc7
+    - TARGET=arm-linux-gnueabihf-gcc8
+    - TARGET=powerpc64le-linux-gnu-gcc4
+    - TARGET=powerpc64le-linux-gnu-gcc7
+    - TARGET=powerpc64le-linux-gnu-gcc8
+    - TARGET=i686-linux-musl-gcc4
+    - TARGET=i686-linux-musl-gcc7
+    - TARGET=i686-linux-musl-gcc8
+    # - TARGET=x86_64-linux-musl-gcc4
     - TARGET=x86_64-linux-musl-gcc7
-    - TARGET=aarch64-linux-musl
-    - TARGET=arm-linux-musleabihf
-    - TARGET=x86_64-apple-darwin14
-    - TARGET=x86_64-unknown-freebsd11.1
+    - TARGET=x86_64-linux-musl-gcc8
+    - TARGET=aarch64-linux-musl-gcc4
+    - TARGET=aarch64-linux-musl-gcc7
+    - TARGET=aarch64-linux-musl-gcc8
+    - TARGET=arm-linux-musleabihf-gcc4
+    - TARGET=arm-linux-musleabihf-gcc7
+    - TARGET=arm-linux-musleabihf-gcc8
+    - TARGET=x86_64-apple-darwin14-gcc4
+    - TARGET=x86_64-apple-darwin14-gcc7
+    - TARGET=x86_64-apple-darwin14-gcc8
+    - TARGET=x86_64-unknown-freebsd11.1-gcc4
+    - TARGET=x86_64-unknown-freebsd11.1-gcc7
+    - TARGET=x86_64-unknown-freebsd11.1-gcc8
     - TARGET=i686-w64-mingw32-gcc4
     - TARGET=i686-w64-mingw32-gcc7
     - TARGET=i686-w64-mingw32-gcc8
-    - TARGET=x86_64-w64-mingw32-gcc4
+    # - TARGET=x86_64-w64-mingw32-gcc4
     - TARGET=x86_64-w64-mingw32-gcc7
     - TARGET=x86_64-w64-mingw32-gcc8
 sudo: required
